@@ -39,6 +39,7 @@ src/main/java/com/sena/bank
 ## ⚙️ How to Run
 ### 1. Clone the repository
 git clone https://github.com/YOUR_USERNAME/banking-api.git
+
 cd banking-api
 
 ### 2. Run the application
