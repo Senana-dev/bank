@@ -27,19 +27,19 @@ This project provides RESTful APIs for managing bank accounts, including account
 ---
 
 ## 🏗️ Project Structure
-src/main/java/com/sena/bank
-├── controller
-├── service
-├── repository
-├── entity
-└── BankApplication.java
+src/main/java/com/sena/bank  
+
+  ㄴ controller    
+  ㄴ service  
+  ㄴ repository  
+  ㄴ entity  
+  ㄴ BankApplication.java
 
 ---
 
 ## ⚙️ How to Run
 ### 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/banking-api.git
-
+git clone https://github.com/YOUR_USERNAME/banking-api.git  
 cd banking-api
 
 ### 2. Run the application
