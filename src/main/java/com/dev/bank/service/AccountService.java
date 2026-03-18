@@ -1,13 +1,16 @@
 package com.dev.bank.service;
 
+import com.dev.bank.dto.TransferRequest;
 import com.dev.bank.entity.Account;
 import com.dev.bank.repository.AccountRepository;
-
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
+@Transactional
 public class AccountService {
 
     private final AccountRepository accountRepository;
@@ -63,5 +66,37 @@ public class AccountService {
 
         account.setBalance(account.getBalance() - amount);
         return accountRepository.save(account);
+    }
+
+    public Map<String, Object> transfer(TransferRequest request) {
+        if (request.getAmount() <= 0) {
+            throw new IllegalArgumentException("Transfer amount must be greater than 0.");
+        }
+
+        if (request.getFromAccountNumber().equals(request.getToAccountNumber())) {
+            throw new IllegalArgumentException("Source and destination accounts must be different.");
+        }
+
+        Account fromAccount = accountRepository.findByAccountNumber(request.getFromAccountNumber())
+                .orElseThrow(() -> new IllegalArgumentException("Source account not found."));
+
+        Account toAccount = accountRepository.findByAccountNumber(request.getToAccountNumber())
+                .orElseThrow(() -> new IllegalArgumentException("Destination account not found."));
+
+        if (fromAccount.getBalance() < request.getAmount()) {
+            throw new IllegalArgumentException("Insufficient balance.");
+        }
+
+        fromAccount.setBalance(fromAccount.getBalance() - request.getAmount());
+        toAccount.setBalance(toAccount.getBalance() + request.getAmount());
+
+        accountRepository.save(fromAccount);
+        accountRepository.save(toAccount);
+
+        return Map.of(
+                "message", "Transfer completed successfully.",
+                "fromAccount", fromAccount,
+                "toAccount", toAccount
+        );
     }
 }

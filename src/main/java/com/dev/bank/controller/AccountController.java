@@ -1,5 +1,6 @@
 package com.dev.bank.controller;
 
+import com.dev.bank.dto.TransferRequest;
 import com.dev.bank.entity.Account;
 import com.dev.bank.service.AccountService;
 import org.springframework.web.bind.annotation.*;
