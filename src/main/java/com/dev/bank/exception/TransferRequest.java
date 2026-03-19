@@ -1,4 +1,4 @@
-package com.dev.bank.dto;
+package com.dev.bank.exception;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
