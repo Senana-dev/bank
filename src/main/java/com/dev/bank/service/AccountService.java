@@ -6,6 +6,7 @@ import com.dev.bank.repository.AccountRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,6 +70,14 @@ public class AccountService {
     }
 
     public Map<String, Object> transfer(TransferRequest request) {
+        if (request == null) {
+            throw new IllegalArgumentException("Transfer request is required.");
+        }
+
+        if (request.getFromAccountNumber() == null || request.getToAccountNumber() == null) {
+            throw new IllegalArgumentException("Account numbers are required.");
+        }
+
         if (request.getAmount() <= 0) {
             throw new IllegalArgumentException("Transfer amount must be greater than 0.");
         }
@@ -93,10 +102,11 @@ public class AccountService {
         accountRepository.save(fromAccount);
         accountRepository.save(toAccount);
 
-        return Map.of(
-                "message", "Transfer completed successfully.",
-                "fromAccount", fromAccount,
-                "toAccount", toAccount
-        );
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Transfer completed successfully.");
+        response.put("fromAccount", fromAccount);
+        response.put("toAccount", toAccount);
+
+        return response;
     }
 }
