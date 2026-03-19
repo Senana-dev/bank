@@ -44,4 +44,9 @@ public class AccountController {
                             @RequestBody Map<String, Double> request) {
         return accountService.withdraw(accountNumber, request.get("amount"));
     }
+
+    @PostMapping("/transfer")
+    public Map<String, Object> transfer(@RequestBody TransferRequest request) {
+        return accountService.transfer(request);
+    }
 }
