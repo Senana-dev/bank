@@ -1,8 +1,11 @@
 package com.dev.bank.controller;
 
+import com.dev.bank.dto.AccountResponse;
+import com.dev.bank.dto.AmountRequest;
+import com.dev.bank.dto.CreateAccountRequest;
 import com.dev.bank.dto.TransferRequest;
-import com.dev.bank.entity.Account;
 import com.dev.bank.service.AccountService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,34 +22,34 @@ public class AccountController {
     }
 
     @PostMapping
-    public Account createAccount(@RequestBody Account account) {
-        return accountService.createAccount(account);
+    public AccountResponse createAccount(@Valid @RequestBody CreateAccountRequest request) {
+        return accountService.createAccount(request);
     }
 
     @GetMapping
-    public List<Account> getAllAccounts() {
+    public List<AccountResponse> getAllAccounts() {
         return accountService.getAllAccounts();
     }
 
     @GetMapping("/{accountNumber}")
-    public Account getAccount(@PathVariable String accountNumber) {
+    public AccountResponse getAccount(@PathVariable String accountNumber) {
         return accountService.getAccountByAccountNumber(accountNumber);
     }
 
     @PostMapping("/{accountNumber}/deposit")
-    public Account deposit(@PathVariable String accountNumber,
-                           @RequestBody Map<String, Double> request) {
-        return accountService.deposit(accountNumber, request.get("amount"));
+    public AccountResponse deposit(@PathVariable String accountNumber,
+                                   @Valid @RequestBody AmountRequest request) {
+        return accountService.deposit(accountNumber, request.getAmount());
     }
 
     @PostMapping("/{accountNumber}/withdraw")
-    public Account withdraw(@PathVariable String accountNumber,
-                            @RequestBody Map<String, Double> request) {
-        return accountService.withdraw(accountNumber, request.get("amount"));
+    public AccountResponse withdraw(@PathVariable String accountNumber,
+                                    @Valid @RequestBody AmountRequest request) {
+        return accountService.withdraw(accountNumber, request.getAmount());
     }
 
     @PostMapping("/transfer")
-    public Map<String, Object> transfer(@RequestBody TransferRequest request) {
+    public Map<String, Object> transfer(@Valid @RequestBody TransferRequest request) {
         return accountService.transfer(request);
     }
 }
