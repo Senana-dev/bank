@@ -18,29 +18,48 @@ This project provides RESTful APIs for managing bank accounts, including account
 
 ## 📌 Features
 
-- Create a new bank account
-- Get all accounts
-- Get account by account number
-- Deposit money
-- Withdraw money
+- Account management (create, read)
+- Deposit and withdrawal
+- Money transfer with transactional integrity
+- Transaction history tracking
+- Global exception handling
+- Request validation using DTO
 
 ---
 
 ## 🏗️ Project Structure
 src/main/java/com/sena/bank  
 
-  ㄴ controller    
-  ㄴ service  
-  ㄴ repository  
-  ㄴ entity  
-  ㄴ BankApplication.java
+  src/main/java/com/dev/bank  
+├── controller  
+│ ├── AccountController.java  
+│ └── TransactionController.java  
+├── service  
+│ └── AccountService.java  
+├── repository  
+│ ├── AccountRepository.java  
+│ └── TransactionHistoryRepository.java  
+├── entity  
+│ ├── Account.java  
+│ ├── TransactionHistory.java  
+│ └── TransactionType.java  
+├── dto  
+│ ├── AccountResponse.java  
+│ ├── AmountRequest.java  
+│ ├── CreateAccountRequest.java  
+│ ├── TransactionHistoryResponse.java  
+│ └── TransferRequest.java  
+├── exception  
+│ ├── ErrorResponse.java  
+│ └── GlobalExceptionHandler.java  
+└── BankApplication.java  
 
 ---
 
 ## ⚙️ How to Run
 ### 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/banking-api.git  
-cd banking-api
+git clone https://github.com/Senana-dev/bank.git  
+cd bank
 
 ### 2. Run the application
 ./mvnw spring-boot:run
@@ -69,6 +88,29 @@ POST `/api/accounts`
 ### ➤ Get All Accounts
 
 GET `/api/accounts`
+
+---
+
+### ➤ Transfer Money
+
+POST '/api/accounts/transfer'
+{
+  "fromAccountNumber": "XXXX",
+  "toAccountNumber": "XXXX",
+  "amount": 200
+}
+
+---
+
+### ➤ Get Transfer Money
+
+GET '/api/transactions'
+
+---
+
+### ➤ GET Transaction History
+
+GET '/api/transactions'
 
 ---
 
@@ -106,12 +148,10 @@ POST '/api/accounts/{accountNumber}/withdraw'
 
 ## 💡 Future Improvements
 
-- Transfer API (account-to-account transactions)
-- Transaction history
-- Global exception handling
-- DTO pattern for request/response
-- Swagger/OpenAPI documentation
-- MySQL/PostgreSQL integration
+- Swagger / OpenAPI documentation
+- PostgreSQL integration
+- Authentication & authorization
+- Pagination for transaction history
 
 ---
 
