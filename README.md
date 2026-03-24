@@ -28,8 +28,6 @@ This project provides RESTful APIs for managing bank accounts, including account
 ---
 
 ## 🏗️ Project Structure
-src/main/java/com/sena/bank  
-
   src/main/java/com/dev/bank  
 ├── controller  
 │ ├── AccountController.java  
@@ -76,7 +74,7 @@ http://localhost:8081
 
 ### ➤ Create Account
 
-POST `/api/accounts`
+POST '/api/accounts'
 {
 "accountNumber": "1001",
 "ownerName": "User Name",
@@ -87,7 +85,7 @@ POST `/api/accounts`
 
 ### ➤ Get All Accounts
 
-GET `/api/accounts`
+GET '/api/accounts'
 
 ---
 
